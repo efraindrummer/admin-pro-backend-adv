@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const { Router } = require('express');
 const express = require('express');
 const cors = require('cors');
 
@@ -11,21 +12,18 @@ const app = express();
 //Configurar Cors
 app.use(cors());
 
+//lectura y parseo del bosy
+app.use(express.json());
+
 //Base de batos
 dbConnection();
 
 //password V7FszKeBqA5Eu3Bu
 //efraindrummer
+//rutas
 
-//rutas 
-app.get('/', (req, res) => {
-
-    res.status(400).json({
-        ok: true,
-        msj: 'Hola Mundo'
-    })
-
-});
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/login', require('./routes/auth'));
 
 app.listen(process.env.PORT, () => {
     console.log('Servidor corriendo en puerto ' + process.env.PORT);
