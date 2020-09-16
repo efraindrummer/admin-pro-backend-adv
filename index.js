@@ -18,6 +18,9 @@ app.use(express.json());
 //Base de batos
 dbConnection();
 
+//Directorio publico
+app.use(express.static('public'))
+
 //password V7FszKeBqA5Eu3Bu
 //efraindrummer
 //rutas
