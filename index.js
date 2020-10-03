@@ -21,8 +21,8 @@ dbConnection();
 //Directorio publico
 app.use(express.static('public'))
 
-//password V7FszKeBqA5Eu3Bu
-//efraindrummer
+//password DcW17IidvrhpQ2Sd
+//mean_user
 //rutas
 
 //rutas de usuarios

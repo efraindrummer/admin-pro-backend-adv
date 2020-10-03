@@ -7,7 +7,6 @@ const getUsuarios = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-
     /* const usuarios = await Usuario.find({}, 'nombre email role google').skip(desde).limit(5);
 
     const total = await Usuario.count(); */
@@ -21,7 +20,7 @@ const getUsuarios = async(req, res) => {
         Usuario.countDocuments()
     ]);
 
-    res.status(400).json({
+    res.status(200).json({
         ok: true,
         usuarios,
         total
@@ -104,7 +103,15 @@ const actualizarUsuario = async(req, res = response) => {
 
         }
 
-        campos.email = email;
+        if (!usuarioDB.google) {
+            campos.email = email;
+        } else if (usuarioDB.email !== email) {
+            return res.status(400).json({
+                ok: false,
+                msj: 'Eres un usuario de Google y no puedes cambiar tu correo'
+            });
+        }
+
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
         res.json({
